@@ -1,5 +1,6 @@
 ---
-layout: post
+permalink: /code/
+layout: posts
 title:  "Welcome to Jekyll!"
 date:   2022-11-19 18:53:46 +0000
 categories: jekyll update
