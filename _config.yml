@@ -33,6 +33,11 @@ url: "https://redmorr.github.io/" # the base hostname & protocol for your site, 
 remote_theme: "mmistakes/minimal-mistakes@4.24.0"
 minimal_mistakes_skin: "dark"
 
+markdown: kramdown
+highlighter: rouge
+kramdown: 
+  input: GFM # it's kramdowns default anyway
+
 plugins:
   - jekyll-feed
   - jekyll-include-cache
