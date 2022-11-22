@@ -25,6 +25,10 @@ Welcome to my gamedev portfolio! Let me show you some features from two games I'
 # Game 1 - [Bushador](https://redmorr.itch.io/bushador)
 This is an isometric shooter prototype I'm currently working on by myself, although I might bring some more people to the project in the future, once I nail down the gameplay.
 
+<video loop="loop" width="100%" height="auto" controls>
+  <source src="/assets/gameplay.webm" type="video/webm">
+</video>
+
 ## Destruction
 The game is going to feature destructible environment. Damaged elements shift their color towards red to signal how close to being destroyed they are.
 
