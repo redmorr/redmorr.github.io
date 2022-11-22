@@ -47,17 +47,38 @@ include: ["_pages"]
 atom_feed:
   hide: true
 
-footer:
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      author_profile: true
+
+
+# Site Author
+author:
+  name             : "Przemysław Szurek"
+  avatar           : "/assets/IK.gif"
+  bio              : "I'm an indie game developer and a software engineer. I love video games and now I'm making them."
+  location         : "Kraków, Poland"
+  email            :
   links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+      url: "https://github.com/redmorr"
+    - label: "itch.io"
+      icon: "fab fa-fw fa-itch-io"
+      url: "https://redmorr.itch.io/"
+
+# Site Footer
+footer:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/redmorr"
+    - label: "itch.io"
+      icon: "fab fa-fw fa-itch-io"
+      url: "https://redmorr.itch.io/"
 
 
 # Exclude from processing.
