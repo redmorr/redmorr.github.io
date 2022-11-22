@@ -6,7 +6,7 @@ layout: single
 #classes: wide
 toc: true
 toc_sticky: true
-title: Game Developer Portfolio
+title: Przemysław Szurek - Unity Game Developer Portfolio
 #excerpt: "This post should display a **header with a solid background color**, if the theme supports it."
 #header:
 #  overlay_color: "#FFF"
@@ -20,9 +20,9 @@ author_profile: true
     overflow-y: auto;
 }
 </style>
-Welcome to my gamedev portfolio! Let me show you some features from two games I've been working on. There are gifs, short videos and code examples presented.
+Welcome to my gamedev portfolio! Let me show you some features from two Unity games I've been working on. There are gifs, short videos and code examples presented.
 
-# Game 1 - [Bushador](https://redmorr.itch.io/bushador)
+# Game 1 - [Bushador](https://redmorr.itch.io/bushador) (Unity C#)
 This is an isometric shooter prototype I'm currently working on by myself, although I might bring some more people to the project in the future, once I nail down the gameplay.
 
 <video loop="loop" width="100%" height="auto" controls>
@@ -41,7 +41,7 @@ I'm using cinemachine to blend between cameras and make possible to look further
 
 ![image-center](/assets/camera_toggle.gif)
 
-## Animation Rigging
+## Animation rigging
 I'm using Animation Rigging Unity package to make procedural motions on top of predefined animations.
 
 ![image-center](/assets/IK.gif)
@@ -51,13 +51,13 @@ I'm using DOTween to make a smooth vignette pulse on being hit.
 
 ![image-center](/assets/pulse.gif)
 
-The vignette pulse is triggered by an event making its value go from 0 to `VignettePeakIntensity`. This component uses uses a single instance of a Tween object and updates it instead of spawning multiple effects. Also it cleans after itself before being destoryed. 
+The vignette pulse is triggered by an event making its value go from 0 to `VignettePeakIntensity`. This component uses uses a single instance of a Tween object and updates it instead of spawning multiple effects. Also it cleans after itself before being destroyed. 
 
 {% highlight C# linenos %}
 public class VignettePulse : MonoBehaviour
 {
     [SerializeField] private Volume GlobalVolume;
-    [SerializeField] private Health playerHP;
+    [SerializeField] private Health PlayerHP;
     [SerializeField] private Color VignetteColor;
     [SerializeField][Range(0f, 1f)] private float VignettePeakIntensity = 0.25f;
     [SerializeField][Range(0f, 2f)] private float VignetteAttackTime = 0.1f;
@@ -85,9 +85,9 @@ public class VignettePulse : MonoBehaviour
             Debug.LogErrorFormat("{0} - Vigniette not found", gameObject.name);
         }
 
-        if (playerHP)
+        if (PlayerHP)
         {
-            playerHP.OnHpLost += HurtVignettePulse;
+            PlayerHP.OnHpLost += HurtVignettePulse;
         }
         else
         {
@@ -112,8 +112,8 @@ public class VignettePulse : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (playerHP)
-            playerHP.OnHpLost -= HurtVignettePulse;
+        if (PlayerHP)
+            PlayerHP.OnHpLost -= HurtVignettePulse;
 
         vignettePulse.Kill();
     }
@@ -204,7 +204,7 @@ It was quite tricky to make it work with orthographic camera, because its depth 
 
 ![image-center](/assets/shield_bubble.gif)
 
-## Occluded models silluethes
+## Occluded models silhouettes
 I'm using URP render features to show models silhouettes of occluded objects.
 
 ![image-center](/assets/occluded_models.gif)
@@ -214,7 +214,7 @@ Current movement model uses acceleration and deceleration to make it feel more s
 
 ![image-center](/assets/movement.gif)
 
-# Game 2 - [Lucifer](https://redmorr.itch.io/lucifer)
+# Game 2 - [Lucifer](https://redmorr.itch.io/lucifer) (Unity C#)
 Together with 2 of my friends, I made this game for a 72-hour-long video game development jam - Mini Jam. It takes place every 2 weeks and features a limitation revealed at the start. This time the limitation was: `Everything Can Die`. On this project I was responsible for programming and SFX.
 
 ![image-center](/assets/lucifer1.gif)
@@ -223,6 +223,6 @@ The player can get hurt by being hit in the health bar, and the ammo bar acts as
 
 ![image-center](/assets/lucifer2.gif)
 
-The environment, which is made out tiles, is also destructable.
+The environment, which is made out tiles, is also destructible.
 
 ![image-center](/assets/lucifer3.gif)
