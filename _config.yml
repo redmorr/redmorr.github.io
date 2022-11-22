@@ -46,7 +46,7 @@ atom_feed:
 # Site Author
 author:
   name             : "Przemysław Szurek"
-  avatar           : "/assets/IK.gif"
+  avatar           : "/assets/avatar.jpg"
   bio              : "I'm an indie game developer and a software engineer. I love video games and now I'm making them."
   location         : "Kraków, Poland"
   email            :
