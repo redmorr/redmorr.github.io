@@ -25,26 +25,34 @@ Welcome to my gamedev portfolio! Let me show you some features from two Unity ga
 # Game 1 - [Bushador](https://redmorr.itch.io/bushador) (Unity C#)
 This is an isometric shooter prototype I'm currently working on by myself, although I might bring some more people to the project in the future, once I nail down the gameplay.
 
-<video loop="loop" width="100%" height="auto" controls>
+<video loop="loop" width="100%" height="auto" autoplay loop muted controls>
   <source src="/assets/gameplay.webm" type="video/webm">
 </video>
 
 ## Destruction
 The game is going to feature destructible environment. Damaged elements shift their color towards red to signal how close to being destroyed they are.
 
-![image-center](/assets/destruction.gif)
+<video loop="loop" width="100%" height="auto" autoplay loop muted controls>
+  <source src="/assets/destruction.webm" type="video/webm">
+</video>
 
 ## Camera toggle
 I'm using cinemachine to blend between cameras and make possible to look further away.
 
-![image-center](/assets/cinemachine.gif)
+<video loop="loop" width="100%" height="auto" autoplay loop muted controls>
+  <source src="/assets/cinemachine.webm" type="video/webm">
+</video>
 
-![image-center](/assets/camera_toggle.gif)
+<video loop="loop" width="100%" height="auto" autoplay loop muted controls>
+  <source src="/assets/camera_toggle.webm" type="video/webm">
+</video>
 
 ## Animation rigging
 I'm using Animation Rigging Unity package to make procedural motions on top of predefined animations.
 
-![image-center](/assets/IK.gif)
+<video loop="loop" width="100%" height="auto" autoplay loop muted controls>
+  <source src="/assets/IK.webm" type="video/webm">
+</video>
 
 ## Vignette pulse
 I'm using DOTween to make a smooth vignette pulse on being hit.
@@ -124,7 +132,7 @@ public class VignettePulse : MonoBehaviour
 AI based on state machine responds to player's actions and moves AI agents across a navmesh. 
 Right now the destination is picked semi-random to make the AI seem less predictable.
 
-<video loop="loop" width="100%" height="auto" controls>
+<video loop="loop" width="100%" height="auto" autoplay loop muted controls>
   <source src="/assets/AI.webm" type="video/webm">
 </video>
 
@@ -202,26 +210,36 @@ Also I want to implement influence maps in the future, if there is a need for th
 This is an intersection shader, which makes objects light up when close to another object.
 It was quite tricky to make it work with orthographic camera, because its depth is not easily available.
 
-![image-center](/assets/shield_bubble.gif)
+<video loop="loop" width="100%" height="auto" autoplay loop muted controls>
+  <source src="/assets/shield_bubble.webm" type="video/webm">
+</video>
 
 ## Occluded models silhouettes
 I'm using URP render features to show models silhouettes of occluded objects.
 
-![image-center](/assets/occluded_models.gif)
+<video loop="loop" width="100%" height="auto" autoplay loop muted controls>
+  <source src="/assets/occluded_models.webm" type="video/webm">
+</video>
 
 ## Movement
 Current movement model uses acceleration and deceleration to make it feel more smooth and interesting.
 
-![image-center](/assets/movement.gif)
+<video loop="loop" width="100%" height="auto" autoplay loop muted controls>
+  <source src="/assets/movement.webm" type="video/webm">
+</video>
 
 # Game 2 - [Lucifer](https://redmorr.itch.io/lucifer) (Unity C#)
 Together with 2 of my friends, I made this game for a 72-hour-long video game development jam - Mini Jam. It takes place every 2 weeks and features a limitation revealed at the start. This time the limitation was: `Everything Can Die`. On this project I was responsible for programming and SFX.
 
-![image-center](/assets/lucifer1.gif)
+<video loop="loop" width="100%" height="auto" autoplay loop muted controls>
+  <source src="/assets/lucifer1.webm" type="video/webm">
+</video>
 
 The player can get hurt by being hit in the health bar, and the ammo bar acts as a shield consuming ammo on being hit. It prevents damage as as long as it's not empty, incentivizing players to time their reloads well.
 
-![image-center](/assets/lucifer2.gif)
+<video loop="loop" width="100%" height="auto" autoplay loop muted controls>
+  <source src="/assets/lucifer2.webm" type="video/webm">
+</video>
 
 The environment, which is made out tiles, is also destructible.
 
