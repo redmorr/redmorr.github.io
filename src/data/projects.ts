@@ -5,6 +5,7 @@ export interface Project {
   longDescription: string;
   type: 'unity' | 'blazor' | 'placeholder';
   url?: string;
+  embedUrl?: string;
   thumbnail?: string;
 }
 
@@ -16,6 +17,7 @@ export const projects: Project[] = [
     longDescription: 'A Unity WebGL remake of Atari\'s Missile Command. Intercept incoming ballistic missiles before they destroy your cities. Built in Unity with a focus on clean game feel and responsive controls.',
     type: 'unity',
     url: 'https://redmorr.github.io/missile-command/',
+    embedUrl: 'https://redmorr.github.io/missile-command/',
   },
   {
     slug: 'blazor',
@@ -24,6 +26,7 @@ export const projects: Project[] = [
     longDescription: 'A Blazor WebAssembly application running entirely client-side via .NET compiled to WebAssembly. No server required — the .NET runtime runs directly in the browser.',
     type: 'blazor',
     url: 'https://redmorr.github.io/blazor/',
+    embedUrl: 'https://redmorr.github.io/blazor/',
   },
   {
     slug: 'placeholder-1',
