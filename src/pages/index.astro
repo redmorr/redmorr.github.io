@@ -10,6 +10,10 @@ import { projects } from '../data/projects';
     <p>A collection of projects built with Unity and .NET.</p>
   </section>
 
+  <div class="wip-banner">
+    This site is under construction — more projects and details coming soon.
+  </div>
+
   <section class="grid">
     {projects.map(project => (
       <ProjectCard project={project} />
@@ -31,6 +35,15 @@ import { projects } from '../data/projects';
   .hero p {
     color: var(--text-muted);
     font-size: 1.1rem;
+  }
+
+  .wip-banner {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    padding: 0.6rem 1rem;
+    margin-bottom: 2rem;
   }
 
   .grid {
