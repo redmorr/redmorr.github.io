@@ -1,0 +1,108 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+const isPlaceholder = project.type === 'placeholder';
+---
+
+<a
+  href={isPlaceholder ? undefined : `/projects/${project.slug}`}
+  class:list={['card', { placeholder: isPlaceholder }]}
+  aria-disabled={isPlaceholder}
+>
+  <div class="thumbnail">
+    {project.thumbnail
+      ? <img src={project.thumbnail} alt={project.title} />
+      : <div class="thumbnail-placeholder" />
+    }
+  </div>
+  <div class="info">
+    <h2 class="title">{project.title}</h2>
+    <p class="description">{project.description}</p>
+    {!isPlaceholder && (
+      <span class="tag">{project.type === 'unity' ? 'Unity' : 'Blazor'}</span>
+    )}
+  </div>
+</a>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+
+  .card:not(.placeholder):hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .card.placeholder {
+    cursor: default;
+    opacity: 0.45;
+  }
+
+  .thumbnail {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #111;
+    overflow: hidden;
+  }
+
+  .thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .thumbnail-placeholder {
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      45deg,
+      #1a1a1a,
+      #1a1a1a 10px,
+      #151515 10px,
+      #151515 20px
+    );
+  }
+
+  .info {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+  }
+
+  .title {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .description {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 0.25rem;
+  }
+</style>
