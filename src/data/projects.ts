@@ -54,6 +54,23 @@ export const projects: Project[] = [
     submissionUrl: 'https://itch.io/jam/reload-magazine-game-jam-3/rate/2448868',
   },
   {
+    slug: 'chinese-empire',
+    title: 'Chinese Empire',
+    description: 'An economic city-building strategy set in historical China. Grow a small village into a vast empire through building placement, agriculture, and resource management.',
+    longDescription: 'A city-builder / economic strategy game set in historical China — the player starts as emperor of a small village and expands it into an empire through careful building placement, crop management, road networks, and cultural development. The project was handed down to me; I fixed outstanding issues and shipped the final release on Steam in March 2024. Published by Yeyuna.',
+    type: 'unity',
+    url: 'https://store.steampowered.com/app/1449550/Chinese_Empire/',
+  },
+  {
+    slug: 'pawnshop-90s',
+    title: 'Pawnshop 90s',
+    description: 'Manage a pawnshop in 1990s Poland — haggle, buy and sell merchandise, expand your business, and meet colourful characters.',
+    longDescription: 'A pawnshop management simulation set in 1990s Poland, published by RockGame S.A. Players run a shop during a period of high unemployment and economic transformation, haggling with customers, organising inventory, disassembling items for parts, and gradually expanding the business. I served as lead programmer. Development is currently on hold.',
+    type: 'unity',
+    url: 'https://store.steampowered.com/app/3126490/Pawnshop_90s/',
+    note: 'Development on hold.',
+  },
+  {
     slug: 'placeholder-2',
     title: 'Coming Soon',
     description: 'Another project is on the way.',
