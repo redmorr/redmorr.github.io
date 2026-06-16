@@ -7,6 +7,8 @@ export interface Project {
   url?: string;
   embedUrl?: string;
   thumbnail?: string;
+  jamUrl?: string;
+  note?: string;
 }
 
 export const projects: Project[] = [
@@ -29,11 +31,15 @@ export const projects: Project[] = [
     embedUrl: 'https://redmorr.github.io/blazor/',
   },
   {
-    slug: 'placeholder-1',
-    title: 'Coming Soon',
-    description: 'A new project is in the works. Check back later.',
-    longDescription: 'This project is currently in development.',
-    type: 'placeholder',
+    slug: 'minijam-119',
+    title: 'Mini Jam 119: Heaven',
+    description: 'A 72-hour game jam entry. Top-down shooter where everything — including the environment — can die.',
+    longDescription: 'An entry for Mini Jam 119: Heaven, a 72-hour game jam with 98 submissions. The theme was Heaven and the limitation was "Everything Can Die" — the player, enemies, ground, HUD, and menus are all destructible. Built in Unity as a top-down western shooter.',
+    type: 'unity',
+    url: 'https://redmorr.github.io/minijam-119-heaven-submission/',
+    embedUrl: 'https://redmorr.github.io/minijam-119-heaven-submission/',
+    jamUrl: 'https://itch.io/jam/mini-jam-119-heaven',
+    note: 'TODO: fix audio — FMOD removed, AudioClip fields need reassigning in Inspector.',
   },
   {
     slug: 'placeholder-2',

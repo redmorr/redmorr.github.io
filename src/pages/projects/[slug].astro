@@ -20,6 +20,14 @@ const label = project.type === 'unity' ? 'Play' : 'Open App';
       <span class="tag">{project.type === 'unity' ? 'Unity' : 'Blazor'}</span>
       <h1>{project.title}</h1>
       <p class="description">{project.longDescription}</p>
+      {project.jamUrl && (
+        <a href={project.jamUrl} target="_blank" rel="noopener noreferrer" class="jam-link">
+          View jam page →
+        </a>
+      )}
+      {project.note && (
+        <p class="note">📝 {project.note}</p>
+      )}
     </header>
 
     {project.embedUrl ? (
@@ -98,6 +106,29 @@ const label = project.type === 'unity' ? 'Play' : 'Open App';
     font-size: 1.05rem;
     color: var(--text-muted);
     line-height: 1.7;
+  }
+
+  .jam-link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--accent);
+    transition: color 0.15s;
+  }
+
+  .jam-link:hover {
+    color: var(--accent-hover);
+  }
+
+  .note {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 0.6rem 0.85rem;
+    border-radius: 4px;
   }
 
   .embed-wrapper {
