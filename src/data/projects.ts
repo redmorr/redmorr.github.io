@@ -54,6 +54,16 @@ export const projects: Project[] = [
     submissionUrl: 'https://itch.io/jam/reload-magazine-game-jam-3/rate/2448868',
   },
   {
+    slug: 'navmesh-agent-simulation',
+    title: 'NavMesh Agent Simulation',
+    description: 'A Unity simulation of autonomous agents navigating an arena, colliding with each other, taking damage, and despawning — with real-time selection and health tracking.',
+    longDescription: 'Agents spawn continuously into an arena, pathfind to random positions via NavMeshAgent, and collide with each other — dealing knockback and damage. Click any agent to track its name and health live. Built with Unity\'s Object Pool (up to 200 agents), event-driven health system, IDamagable interface, and ScriptableObject-based config for collision tuning.',
+    type: 'unity',
+    url: 'https://redmorr.github.io/navmesh-agent-simulation/',
+    embedUrl: 'https://redmorr.github.io/navmesh-agent-simulation/',
+    note: 'TODO: fix selection shader · add interactions',
+  },
+  {
     slug: 'chinese-empire',
     title: 'Chinese Empire',
     description: 'An economic city-building strategy set in historical China. Grow a small village into a vast empire through building placement, agriculture, and resource management.',
