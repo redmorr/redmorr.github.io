@@ -20,11 +20,18 @@ const label = project.type === 'unity' ? 'Play' : 'Open App';
       <span class="tag">{project.type === 'unity' ? 'Unity' : 'Blazor'}</span>
       <h1>{project.title}</h1>
       <p class="description">{project.longDescription}</p>
-      {project.jamUrl && (
-        <a href={project.jamUrl} target="_blank" rel="noopener noreferrer" class="jam-link">
-          View jam page →
-        </a>
-      )}
+      <div class="links">
+        {project.jamUrl && (
+          <a href={project.jamUrl} target="_blank" rel="noopener noreferrer" class="jam-link">
+            View jam page →
+          </a>
+        )}
+        {project.submissionUrl && (
+          <a href={project.submissionUrl} target="_blank" rel="noopener noreferrer" class="jam-link">
+            View submission →
+          </a>
+        )}
+      </div>
       {project.note && (
         <p class="note">📝 {project.note}</p>
       )}
@@ -106,6 +113,13 @@ const label = project.type === 'unity' ? 'Play' : 'Open App';
     font-size: 1.05rem;
     color: var(--text-muted);
     line-height: 1.7;
+  }
+
+  .links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
   }
 
   .jam-link {

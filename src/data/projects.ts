@@ -8,6 +8,7 @@ export interface Project {
   embedUrl?: string;
   thumbnail?: string;
   jamUrl?: string;
+  submissionUrl?: string;
   note?: string;
 }
 
@@ -32,13 +33,14 @@ export const projects: Project[] = [
   },
   {
     slug: 'minijam-119',
-    title: 'Mini Jam 119: Heaven',
-    description: 'A 72-hour game jam entry. Top-down shooter where everything — including the environment — can die.',
-    longDescription: 'An entry for Mini Jam 119: Heaven, a 72-hour game jam with 98 submissions. The theme was Heaven and the limitation was "Everything Can Die" — the player, enemies, ground, HUD, and menus are all destructible. Built in Unity as a top-down western shooter.',
+    title: 'Lucifer',
+    description: 'A 72-hour jam entry. Top-down western shooter where everything — enemies, ground, HUD, ammo — can be destroyed.',
+    longDescription: 'Submitted to Mini Jam 119: Heaven (72h, 98 entries) with the limitation "Everything Can Die". The approach: implement as little as possible while keeping the game playable — health and ammo are destructible in-world objects, no menus. Ranked #53 overall and #19 for use of limitation. Team: programming by me, art by Marvin Holzinger, music by Hidde \'Zephyde\'.',
     type: 'unity',
     url: 'https://redmorr.github.io/minijam-119-heaven-submission/',
     embedUrl: 'https://redmorr.github.io/minijam-119-heaven-submission/',
     jamUrl: 'https://itch.io/jam/mini-jam-119-heaven',
+    submissionUrl: 'https://itch.io/jam/mini-jam-119-heaven/rate/1789853',
     note: 'TODO: fix audio — FMOD removed, AudioClip fields need reassigning in Inspector.',
   },
   {
