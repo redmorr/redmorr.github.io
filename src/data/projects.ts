@@ -3,7 +3,7 @@ export interface Project {
   title: string;
   description: string;
   longDescription: string;
-  type: 'unity' | 'blazor' | 'placeholder';
+  type: 'unity' | 'blazor' | 'resource' | 'placeholder';
   url?: string;
   embedUrl?: string;
   thumbnail?: string;
@@ -52,6 +52,14 @@ export const projects: Project[] = [
     url: 'https://neofuturism.itch.io/colt',
     jamUrl: 'https://itch.io/jam/reload-magazine-game-jam-3',
     submissionUrl: 'https://itch.io/jam/reload-magazine-game-jam-3/rate/2448868',
+  },
+  {
+    slug: 'flask-crud-cheatsheet',
+    title: 'Flask CRUD Cheat Sheet',
+    description: 'A one-page reference for Flask + SQLAlchemy CRUD apps — routes, models, templates, Postgres/Docker swaps, and key talking points.',
+    longDescription: 'A concise single-page reference for building Flask CRUD apps with SQLAlchemy. Covers the full create/read/update/delete skeleton, model definitions, Jinja2 templates, Postgres + Docker Compose configuration, and a talk-track of the points most likely to come up in a technical interview.',
+    type: 'resource',
+    url: '/cheatsheets/flask-crud.html',
   },
   {
     slug: 'navmesh-agent-simulation',

@@ -6,10 +6,15 @@ interface Props {
 }
 const { project } = Astro.props;
 const isPlaceholder = project.type === 'placeholder';
+const isResource = project.type === 'resource';
+const href = isPlaceholder ? undefined : isResource ? project.url : `/projects/${project.slug}`;
+const tagLabel: Record<string, string> = { unity: 'Unity', blazor: 'Blazor', resource: 'Reference' };
 ---
 
 <a
-  href={isPlaceholder ? undefined : `/projects/${project.slug}`}
+  href={href}
+  target={isResource ? '_blank' : undefined}
+  rel={isResource ? 'noopener noreferrer' : undefined}
   class:list={['card', { placeholder: isPlaceholder }]}
   aria-disabled={isPlaceholder}
 >
@@ -23,7 +28,7 @@ const isPlaceholder = project.type === 'placeholder';
     <h2 class="title">{project.title}</h2>
     <p class="description">{project.description}</p>
     {!isPlaceholder && (
-      <span class="tag">{project.type === 'unity' ? 'Unity' : 'Blazor'}</span>
+      <span class="tag">{tagLabel[project.type] ?? project.type}</span>
     )}
   </div>
 </a>
