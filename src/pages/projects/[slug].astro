@@ -10,6 +10,7 @@ export function getStaticPaths() {
 
 const { project } = Astro.props;
 const label = project.type === 'unity' ? 'Play' : 'Open App';
+const tagLabel: Record<string, string> = { unity: 'Unity', blazor: 'Blazor', resource: 'Reference', aws: 'AWS' };
 ---
 
 <Layout title={`${project.title} — redmorr`}>
@@ -17,7 +18,7 @@ const label = project.type === 'unity' ? 'Play' : 'Open App';
 
   <article class="project">
     <header class="project-header">
-      <span class="tag">{project.type === 'unity' ? 'Unity' : 'Blazor'}</span>
+      <span class="tag">{tagLabel[project.type] ?? project.type}</span>
       <h1>{project.title}</h1>
       <p class="description">{project.longDescription}</p>
       <div class="links">

@@ -3,7 +3,7 @@ export interface Project {
   title: string;
   description: string;
   longDescription: string;
-  type: 'unity' | 'blazor' | 'resource' | 'placeholder';
+  type: 'unity' | 'blazor' | 'resource' | 'aws' | 'placeholder';
   url?: string;
   embedUrl?: string;
   thumbnail?: string;
@@ -87,6 +87,15 @@ export const projects: Project[] = [
     type: 'unity',
     url: 'https://store.steampowered.com/app/3126490/Pawnshop_90s/',
     note: 'Development on hold.',
+  },
+  {
+    slug: 'prescription-app',
+    title: 'Prescription App',
+    description: 'A full-stack AWS demo: a million-row medication table with instant pagination, prefix search, and a live panel showing which cache served each request.',
+    longDescription: 'A serverless full-stack app on AWS: Vue 3 frontend on S3 + CloudFront, a Lambda (Function URL) API, DynamoDB holding 1,000,000 medications, and a self-hosted Redis cache on Fargate Spot — all provisioned with AWS CDK. Browse or prefix-search the table, jump to any of 20,000 pages, and watch the request-flow panel report whether each response came from the Redis page cache, a cached cursor, or a cold DynamoDB skip-scan. Built to explore the hard parts DynamoDB leaves to you: offset pagination it does not support, single-partition write throttling, and CloudFront changing what "client IP" means. The whole stack has cost guardrails — no NAT gateway, no ALB, Fargate Spot at the smallest size, everything destroyable.',
+    type: 'aws',
+    url: 'https://d3qfjrpy3bi73x.cloudfront.net',
+    embedUrl: '/prescription-app/',
   },
   {
     slug: 'placeholder-2',

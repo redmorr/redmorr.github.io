@@ -8,7 +8,7 @@ const { project } = Astro.props;
 const isPlaceholder = project.type === 'placeholder';
 const isResource = project.type === 'resource';
 const href = isPlaceholder ? undefined : isResource ? project.url : `/projects/${project.slug}`;
-const tagLabel: Record<string, string> = { unity: 'Unity', blazor: 'Blazor', resource: 'Reference' };
+const tagLabel: Record<string, string> = { unity: 'Unity', blazor: 'Blazor', resource: 'Reference', aws: 'AWS' };
 ---
 
 <a
