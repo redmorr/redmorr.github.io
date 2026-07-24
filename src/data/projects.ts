@@ -53,6 +53,7 @@ export const projects: Project[] = [
     longDescription: 'Submitted to Reload Magazine Game Jam #3 (3 entries). You are John OldWest Marine — navigate a node-based Old West map, managing hunger and ammo across combat, boss, and supply nodes. Four weapons (Colt, shotgun, rifle, light gun), three enemy types, and dynamically generated levels built from modular chunks. Windows download via itch.io. Team: programming by Przemek "Nukemu" Szurek, Maksymilian "Tromstone" Dziadoń, and Michał "Steiger" Jaworski; level design by Grzegorz "Bethrezen" Banasik and Michał "Steiger" Jaworski; music by Brunon Lubas; art and animation by Michał "Steiger" Jaworski.',
     type: 'unity',
     url: 'https://neofuturism.itch.io/colt',
+    thumbnail: '/colt63-thumb.png',
     jamUrl: 'https://itch.io/jam/reload-magazine-game-jam-3',
     submissionUrl: 'https://itch.io/jam/reload-magazine-game-jam-3/rate/2448868',
   },
@@ -104,6 +105,7 @@ export const projects: Project[] = [
     longDescription: 'A city-builder / economic strategy game set in historical China — the player starts as emperor of a small village and expands it into an empire through careful building placement, crop management, road networks, and cultural development. The project was handed down to me; I fixed outstanding issues and shipped the final release on Steam in March 2024. Published by Yeyuna.',
     type: 'unity',
     url: 'https://store.steampowered.com/app/1449550/Chinese_Empire/',
+    thumbnail: '/chinese-empire-thumb.jpg',
   },
   {
     slug: 'pawnshop-90s',
@@ -112,6 +114,7 @@ export const projects: Project[] = [
     longDescription: 'A pawnshop management simulation set in 1990s Poland, published by RockGame S.A. Players run a shop during a period of high unemployment and economic transformation, haggling with customers, organising inventory, disassembling items for parts, and gradually expanding the business. I served as lead programmer. Development is currently on hold.',
     type: 'unity',
     url: 'https://store.steampowered.com/app/3126490/Pawnshop_90s/',
+    thumbnail: '/pawnshop-90s-thumb.jpg',
     note: 'Development on hold.',
   },
   {
