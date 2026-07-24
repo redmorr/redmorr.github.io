@@ -4,15 +4,11 @@ import ProjectCard from '../components/ProjectCard.astro';
 import { projects } from '../data/projects';
 ---
 
-<Layout title="redmorr — portfolio">
+<Layout title="Przemek Szurek — Software Engineer & Game Developer">
   <section class="hero">
-    <h1>Game &amp; Web Developer</h1>
-    <p>A collection of projects built with Unity and .NET.</p>
+    <h1>Przemek Szurek</h1>
+    <p class="tagline">Software Engineer <span>&amp;</span> Game Developer</p>
   </section>
-
-  <div class="wip-banner">
-    This site is under construction — more projects and details coming soon.
-  </div>
 
   <section class="grid">
     {projects.map(project => (
@@ -27,23 +23,23 @@ import { projects } from '../data/projects';
   }
 
   .hero h1 {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
   }
 
-  .hero p {
+  .tagline {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 500;
     color: var(--text-muted);
-    font-size: 1.1rem;
+    letter-spacing: 0.01em;
   }
 
-  .wip-banner {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    border: 1px dashed var(--border);
-    border-radius: 6px;
-    padding: 0.6rem 1rem;
-    margin-bottom: 2rem;
+  .tagline span {
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0.15em;
   }
 
   .grid {
