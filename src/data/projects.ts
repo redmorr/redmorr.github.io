@@ -3,7 +3,7 @@ export interface Project {
   title: string;
   description: string;
   longDescription: string;
-  type: 'unity' | 'blazor' | 'resource' | 'aws' | 'python';
+  type: 'unity' | 'aws' | 'python';
   url: string;
   /** true → embed `url`; a string → embed that URL instead */
   embed?: true | string;
@@ -17,8 +17,6 @@ export interface Project {
 
 export const tagLabel: Record<Project['type'], string> = {
   unity: 'Unity',
-  blazor: 'Blazor',
-  resource: 'Reference',
   aws: 'AWS',
   python: 'Python',
 };
@@ -31,15 +29,6 @@ export const projects: Project[] = [
     longDescription: 'A Unity WebGL remake of Atari\'s Missile Command. Intercept incoming ballistic missiles before they destroy your cities. Built in Unity with a focus on clean game feel and responsive controls.',
     type: 'unity',
     url: 'https://redmorr.github.io/missile-command/',
-    embed: true,
-  },
-  {
-    slug: 'blazor',
-    title: 'Blazor App',
-    description: 'A hello world Blazor WebAssembly app running entirely in the browser via .NET WASM.',
-    longDescription: 'A Blazor WebAssembly application running entirely client-side via .NET compiled to WebAssembly. No server required — the .NET runtime runs directly in the browser.',
-    type: 'blazor',
-    url: 'https://redmorr.github.io/blazor/',
     embed: true,
   },
   {
@@ -63,14 +52,6 @@ export const projects: Project[] = [
     url: 'https://neofuturism.itch.io/colt',
     jamUrl: 'https://itch.io/jam/reload-magazine-game-jam-3',
     submissionUrl: 'https://itch.io/jam/reload-magazine-game-jam-3/rate/2448868',
-  },
-  {
-    slug: 'flask-crud-cheatsheet',
-    title: 'Flask CRUD Cheat Sheet',
-    description: 'A one-page reference for Flask + SQLAlchemy CRUD apps — routes, models, templates, Postgres/Docker swaps, and key talking points.',
-    longDescription: 'A concise single-page reference for building Flask CRUD apps with SQLAlchemy. Covers the full create/read/update/delete skeleton, model definitions, Jinja2 templates, Postgres + Docker Compose configuration, and a talk-track of the points most likely to come up in a technical interview.',
-    type: 'resource',
-    url: '/cheatsheets/flask-crud.html',
   },
   {
     slug: 'navmesh-agent-simulation',

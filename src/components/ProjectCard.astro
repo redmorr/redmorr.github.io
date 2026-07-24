@@ -5,16 +5,9 @@ interface Props {
   project: Project;
 }
 const { project } = Astro.props;
-const isResource = project.type === 'resource';
-const href = isResource ? project.url : `/projects/${project.slug}`;
 ---
 
-<a
-  href={href}
-  target={isResource ? '_blank' : undefined}
-  rel={isResource ? 'noopener noreferrer' : undefined}
-  class="card"
->
+<a href={`/projects/${project.slug}`} class="card">
   <div class="thumbnail">
     {project.thumbnail
       ? <img src={project.thumbnail} alt={project.title} />
