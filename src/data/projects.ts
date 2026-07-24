@@ -3,7 +3,7 @@ export interface Project {
   title: string;
   description: string;
   longDescription: string;
-  type: 'unity' | 'aws' | 'python';
+  type: 'unity' | 'aws' | 'python' | 'web';
   url: string;
   /** true → embed `url`; a string → embed that URL instead */
   embed?: true | string;
@@ -19,6 +19,7 @@ export const tagLabel: Record<Project['type'], string> = {
   unity: 'Unity',
   aws: 'AWS',
   python: 'Python',
+  web: 'Web',
 };
 
 export const projects: Project[] = [
@@ -81,6 +82,15 @@ export const projects: Project[] = [
     url: 'https://redmorr.github.io/pickup-physics/',
     embed: true,
     thumbnail: '/pickup-physics-thumb.png',
+  },
+  {
+    slug: 'maze-viz',
+    title: 'Maze Visualizer',
+    description: 'An interactive answer to "which maze algorithm is best?" Generate a maze, then race BFS, Greedy Best-First, and A* on the same maze with live metrics.',
+    longDescription: 'An interactive visual comparison of maze algorithms. Generate a perfect maze with one of three generators — Recursive Backtracker (long winding corridors), Prim\'s (bushy, many short dead ends), or Kruskal\'s (uniform texture) — then watch BFS, Greedy Best-First, and A* solve the same seeded maze side by side, with live metrics that make the tradeoffs obvious: cells explored, path length vs. optimal, optimality %, and runtime. The core is framework-agnostic TypeScript with no DOM: generators and solvers don\'t draw, they emit an ordered step-log of typed events (carve, visit, frontier, path) that a single canvas render loop replays — which is what lets generation and every solver animate through the same mechanism and run frame-synced in the Race view. Built with Astro + TypeScript + HTML5 Canvas, no runtime dependencies, with a Vitest suite pinning the perfect-maze invariant, BFS/A* optimality, and that A* explores no more cells than BFS.',
+    type: 'web',
+    url: 'https://redmorr.github.io/maze-viz/',
+    embed: true,
   },
   {
     slug: 'chinese-empire',
