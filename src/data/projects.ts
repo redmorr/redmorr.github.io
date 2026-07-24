@@ -72,6 +72,7 @@ export const projects: Project[] = [
     type: 'unity',
     url: 'https://redmorr.github.io/spring-sway-webgl/',
     embed: true,
+    thumbnail: '/spring-sway-thumb.png',
   },
   {
     slug: 'pickup-physics',
@@ -91,6 +92,7 @@ export const projects: Project[] = [
     type: 'web',
     url: 'https://redmorr.github.io/maze-viz/',
     embed: true,
+    thumbnail: '/maze-viz-thumb.png',
   },
   {
     slug: 'chinese-empire',
