@@ -1,16 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { projects } from '../../data/projects';
+import { projects, tagLabel } from '../../data/projects';
 
 export function getStaticPaths() {
-  return projects
-    .filter(p => p.type !== 'placeholder')
-    .map(p => ({ params: { slug: p.slug }, props: { project: p } }));
+  return projects.map(p => ({ params: { slug: p.slug }, props: { project: p } }));
 }
 
 const { project } = Astro.props;
 const label = project.type === 'unity' || project.type === 'python' ? 'Play' : 'Open App';
-const tagLabel: Record<string, string> = { unity: 'Unity', blazor: 'Blazor', resource: 'Reference', aws: 'AWS', python: 'Python' };
+const embedUrl = project.embed === true ? project.url : project.embed;
 ---
 
 <Layout title={`${project.title} — redmorr`}>
@@ -18,7 +16,7 @@ const tagLabel: Record<string, string> = { unity: 'Unity', blazor: 'Blazor', res
 
   <article class="project">
     <header class="project-header">
-      <span class="tag">{tagLabel[project.type] ?? project.type}</span>
+      <span class="tag">{tagLabel[project.type]}</span>
       <h1>{project.title}</h1>
       <p class="description">{project.longDescription}</p>
       <div class="links">
@@ -38,14 +36,14 @@ const tagLabel: Record<string, string> = { unity: 'Unity', blazor: 'Blazor', res
       )}
     </header>
 
-    {project.embedUrl ? (
+    {embedUrl ? (
       <div class="embed-wrapper" style={project.embedAspect ? `aspect-ratio: ${project.embedAspect}` : undefined}>
         <div class="embed-poster" id="poster">
           {project.thumbnail
             ? <img src={project.thumbnail} alt={project.title} class="poster-img" />
             : <div class="poster-bg" />
           }
-          <button class="play-btn" id="play-btn" data-src={project.embedUrl}>
+          <button class="play-btn" id="play-btn" data-src={embedUrl}>
             <span class="play-icon">▶</span>
             {label}
           </button>
@@ -61,15 +59,12 @@ const tagLabel: Record<string, string> = { unity: 'Unity', blazor: 'Blazor', res
 </Layout>
 
 <script>
-  const btn = document.getElementById('play-btn') as HTMLButtonElement | null;
-  const poster = document.getElementById('poster') as HTMLElement | null;
-  const frame = document.getElementById('embed-frame') as HTMLIFrameElement | null;
-
-  btn?.addEventListener('click', () => {
-    const src = btn.dataset.src!;
-    frame!.src = src;
-    poster!.classList.add('hidden');
-    frame!.classList.remove('hidden');
+  document.getElementById('play-btn')?.addEventListener('click', (e) => {
+    const btn = e.currentTarget as HTMLButtonElement;
+    const frame = document.getElementById('embed-frame') as HTMLIFrameElement;
+    frame.src = btn.dataset.src!;
+    document.getElementById('poster')!.classList.add('hidden');
+    frame.classList.remove('hidden');
   });
 </script>
 
