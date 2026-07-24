@@ -31,6 +31,7 @@ export const projects: Project[] = [
     type: 'unity',
     url: 'https://redmorr.github.io/missile-command/',
     embed: true,
+    thumbnail: '/missile-command-thumb.png',
   },
   {
     slug: 'minijam-119',
@@ -40,6 +41,7 @@ export const projects: Project[] = [
     type: 'unity',
     url: 'https://redmorr.github.io/minijam-119-heaven-submission/',
     embed: true,
+    thumbnail: '/minijam-119-thumb.png',
     jamUrl: 'https://itch.io/jam/mini-jam-119-heaven',
     submissionUrl: 'https://itch.io/jam/mini-jam-119-heaven/rate/1789853',
     note: 'TODO: fix audio — FMOD removed, AudioClip fields need reassigning in Inspector.',
@@ -62,6 +64,7 @@ export const projects: Project[] = [
     type: 'unity',
     url: 'https://redmorr.github.io/navmesh-agent-simulation/',
     embed: true,
+    thumbnail: '/navmesh-agent-simulation-thumb.png',
     note: 'TODO: fix selection shader · add interactions',
   },
   {
@@ -119,6 +122,7 @@ export const projects: Project[] = [
     type: 'aws',
     url: 'https://d3qfjrpy3bi73x.cloudfront.net',
     embed: '/prescription-app/',
+    thumbnail: '/prescription-app-thumb.png',
   },
   {
     slug: 'rbmk-sim',
