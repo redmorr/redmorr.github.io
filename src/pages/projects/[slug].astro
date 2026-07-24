@@ -9,8 +9,8 @@ export function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const label = project.type === 'unity' ? 'Play' : 'Open App';
-const tagLabel: Record<string, string> = { unity: 'Unity', blazor: 'Blazor', resource: 'Reference', aws: 'AWS' };
+const label = project.type === 'unity' || project.type === 'python' ? 'Play' : 'Open App';
+const tagLabel: Record<string, string> = { unity: 'Unity', blazor: 'Blazor', resource: 'Reference', aws: 'AWS', python: 'Python' };
 ---
 
 <Layout title={`${project.title} — redmorr`}>
@@ -39,7 +39,7 @@ const tagLabel: Record<string, string> = { unity: 'Unity', blazor: 'Blazor', res
     </header>
 
     {project.embedUrl ? (
-      <div class="embed-wrapper">
+      <div class="embed-wrapper" style={project.embedAspect ? `aspect-ratio: ${project.embedAspect}` : undefined}>
         <div class="embed-poster" id="poster">
           {project.thumbnail
             ? <img src={project.thumbnail} alt={project.title} class="poster-img" />

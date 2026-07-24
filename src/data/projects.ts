@@ -3,9 +3,11 @@ export interface Project {
   title: string;
   description: string;
   longDescription: string;
-  type: 'unity' | 'blazor' | 'resource' | 'aws' | 'placeholder';
+  type: 'unity' | 'blazor' | 'resource' | 'aws' | 'python' | 'placeholder';
   url?: string;
   embedUrl?: string;
+  /** override the default 16/9 embed box, e.g. '960 / 856' */
+  embedAspect?: string;
   thumbnail?: string;
   jamUrl?: string;
   submissionUrl?: string;
@@ -96,6 +98,17 @@ export const projects: Project[] = [
     type: 'aws',
     url: 'https://d3qfjrpy3bi73x.cloudfront.net',
     embedUrl: '/prescription-app/',
+  },
+  {
+    slug: 'rbmk-sim',
+    title: 'RBMK Reactor Simulation',
+    description: 'An agent-based model of Chernobyl-type reactor physics — free-moving neutrons, steam voids, xenon poisoning, and the graphite-tipped control rod flaw. Run the reactor, or run it into the ground.',
+    longDescription: 'A 2D agent-based simulation of RBMK (Chernobyl-type) reactor physics, written in Python/pygame and compiled to WebAssembly. Thousands of individual neutrons move over a 60x40 core lattice, thermalising in graphite, being absorbed by water and boron, and causing fission in U-235 — every reactor behaviour emerges from those local rules rather than being scripted. That includes the three that mattered on 26 April 1986: the positive void coefficient (steam displaces neutron-absorbing water while the graphite keeps moderating, so losing coolant ADDS reactivity), xenon-135 poisoning (a time-delayed neutron sink that traps a reactor after a power reduction), and the graphite displacer tips that make the first seconds of an emergency scram increase power instead of cutting it. A guided scenario walks through the accident sequence; a staged physics test suite verifies all five behaviours independently of the visuals.',
+    type: 'python',
+    url: '/rbmk-sim/',
+    embedUrl: '/rbmk-sim/',
+    embedAspect: '960 / 856',  // the sim window is taller than 16/9
+    thumbnail: '/rbmk-sim-thumb.png',
   },
   {
     slug: 'placeholder-2',
