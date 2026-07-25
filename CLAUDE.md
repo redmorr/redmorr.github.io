@@ -117,6 +117,15 @@ Images are hotlinked from the stores' CDNs, not vendored.
   `https://redmorr.github.io/...` URL can't be measured from `localhost` and
   falls back to `85vh` in local preview. It's correct once deployed. Prefer a
   relative URL when the app is served from this repo's `public/`.
+- **rbmk-sim hangs at "Loading, please wait ..." in local preview only.** `astro
+  preview` serves `rbmk-sim.tar.gz` with `Content-Encoding: gzip`, so the browser
+  transparently decompresses it and pygbag's `tarfile.open(mode="r:gz")` gets a
+  plain tar. GitHub Pages serves it raw and it runs fine — confirm with
+  `Invoke-WebRequest <url> -UseBasicParsing` and check the first bytes are the
+  gzip magic `1F 8B`, not tar text. Not a stale build; verify that claim by
+  hashing `public/rbmk-sim/` against the source repo's `web/dist/rbmk-sim/`.
+  Ignore `PyMain: BrowserFS not found` — it's a bare `console.error` in
+  `main.js`, non-fatal, and the file was dropped from the upstream CDN.
 - **Embedded projects are separate repos**, each with its own Pages deploy.
   GitHub Pages on the free plan requires them to be **public** — a private repo
   returns 422 "plan does not support GitHub Pages", which looks like a config
