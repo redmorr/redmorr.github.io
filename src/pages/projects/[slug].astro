@@ -9,6 +9,19 @@ export function getStaticPaths() {
 const { project } = Astro.props;
 const label = project.type === 'unity' || project.type === 'python' ? 'Play' : 'Open App';
 const embedUrl = project.embed === true ? project.url : project.embed;
+const isGame = !!project.game;
+// HTML apps grow to fit their content so nothing scrolls inside the iframe; canvas apps keep a fixed box.
+const autoHeight = !!embedUrl && (project.type === 'aws' || project.type === 'web');
+// Unity's stock template is a hardcoded 960x638 page — render the iframe at that size and scale it down to fit.
+const unityFixed = !!embedUrl && project.type === 'unity';
+// a project with no embed links out to its store page, so name the store rather than saying "Play"
+const host = project.url.startsWith('http') ? new URL(project.url).hostname : '';
+const externalLabel = host.includes('steampowered') ? 'View on Steam'
+  : host.includes('itch.io') ? 'View on itch.io'
+  : label;
+const wrapperStyle = !autoHeight && !unityFixed && project.embedAspect
+  ? `aspect-ratio: ${project.embedAspect}`
+  : undefined;
 ---
 
 <Layout title={`${project.title} — redmorr`}>
@@ -16,7 +29,11 @@ const embedUrl = project.embed === true ? project.url : project.embed;
 
   <article class="project">
     <header class="project-header">
-      <span class="tag">{tagLabel[project.type]}</span>
+      <div class="tags">
+        {(project.tags ?? [tagLabel[project.type]]).map((t, i) => (
+          <span class:list={['tag', { primary: i === 0 }]}>{t}</span>
+        ))}
+      </div>
       <h1>{project.title}</h1>
       <p class="description">{project.longDescription}</p>
       <div class="links">
@@ -37,28 +54,65 @@ const embedUrl = project.embed === true ? project.url : project.embed;
     </header>
 
     {embedUrl ? (
-      <div class="embed-wrapper" style={project.embedAspect ? `aspect-ratio: ${project.embedAspect}` : undefined}>
-        <div class="embed-poster" id="poster">
-          {project.thumbnail
-            ? <img src={project.thumbnail} alt={project.title} class="poster-img" />
-            : <div class="poster-bg" />
-          }
-          <button class="play-btn" id="play-btn" data-src={embedUrl}>
-            <span class="play-icon">▶</span>
-            {label}
-          </button>
+      isGame ? (
+        <div class:list={['embed-wrapper', { unity: unityFixed }]} style={wrapperStyle}>
+          <div class="embed-poster" id="poster">
+            {project.thumbnail
+              ? <img src={project.thumbnail} alt={project.title} class="poster-img" />
+              : <div class="poster-bg" />
+            }
+            <button class="play-btn" id="play-btn" data-src={embedUrl}>
+              <span class="play-icon">▶</span>
+              {label}
+            </button>
+          </div>
+          <iframe
+            id="embed-frame"
+            class:list={['embed-frame', 'hidden', { 'unity-frame': unityFixed }]}
+            allowfullscreen
+          ></iframe>
         </div>
-        <iframe id="embed-frame" class="embed-frame hidden" allowfullscreen></iframe>
-      </div>
-    ) : project.url ? (
-      <a href={project.url} target="_blank" rel="noopener noreferrer" class="external-btn">
-        {label} →
-      </a>
+      ) : (
+        <div
+          class:list={['embed-wrapper', { 'auto-height': autoHeight, unity: unityFixed }]}
+          style={wrapperStyle}
+        >
+          <iframe
+            src={embedUrl}
+            class:list={['embed-frame', { 'auto-frame': autoHeight, 'unity-frame': unityFixed }]}
+            allowfullscreen
+          ></iframe>
+        </div>
+      )
     ) : null}
+
+    {project.gallery && (
+      <div class="gallery">
+        {project.gallery.map(src => (
+          <img src={src} alt={`${project.title} screenshot`} loading="lazy" />
+        ))}
+      </div>
+    )}
+
+    {project.storeEmbed && (
+      <iframe
+        src={project.storeEmbed.src}
+        class="store-widget"
+        style={`max-width: ${project.storeEmbed.width}px; height: ${project.storeEmbed.height}px`}
+        title={`${project.title} on the store`}
+      ></iframe>
+    )}
+
+    {!embedUrl && project.url && (
+      <a href={project.url} target="_blank" rel="noopener noreferrer" class="external-btn">
+        {externalLabel} →
+      </a>
+    )}
   </article>
 </Layout>
 
 <script>
+  // Games: click the poster to load the heavy WebGL build.
   document.getElementById('play-btn')?.addEventListener('click', (e) => {
     const btn = e.currentTarget as HTMLButtonElement;
     const frame = document.getElementById('embed-frame') as HTMLIFrameElement;
@@ -66,6 +120,35 @@ const embedUrl = project.embed === true ? project.url : project.embed;
     document.getElementById('poster')!.classList.add('hidden');
     frame.classList.remove('hidden');
   });
+
+  // Unity: its page is a fixed 960x638, so scale the frame to the wrapper instead of scrolling inside it.
+  const unity = document.querySelector('.embed-wrapper.unity') as HTMLElement | null;
+  if (unity) {
+    const fitUnity = () => {
+      const w = unity.clientWidth;
+      // 0 = not laid out yet; keep the default scale and let the observer correct it
+      if (w) unity.style.setProperty('--unity-scale', String(w / 960));
+    };
+    fitUnity();
+    new ResizeObserver(fitUnity).observe(unity);
+  }
+
+  // HTML apps: grow the iframe to its content so nothing scrolls inside it (same-origin only).
+  const auto = document.querySelector('iframe.auto-frame') as HTMLIFrameElement | null;
+  if (auto) {
+    const fit = () => {
+      try {
+        const doc = auto.contentDocument;
+        if (doc) auto.style.height = doc.documentElement.scrollHeight + 'px';
+      } catch { /* cross-origin (e.g. local preview of a live URL): leave the fallback height */ }
+    };
+    auto.addEventListener('load', () => {
+      fit();
+      try {
+        new ResizeObserver(fit).observe(auto.contentDocument!.documentElement);
+      } catch { /* ignore */ }
+    });
+  }
 </script>
 
 <style>
@@ -89,14 +172,28 @@ const embedUrl = project.embed === true ? project.url : project.embed;
     margin-bottom: 2rem;
   }
 
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
   .tag {
-    display: inline-block;
     font-size: 0.75rem;
     font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--text-muted);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+  }
+
+  .tag.primary {
     color: var(--accent);
-    margin-bottom: 0.75rem;
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+    background: color-mix(in srgb, var(--accent) 12%, var(--bg));
   }
 
   h1 {
@@ -148,6 +245,14 @@ const embedUrl = project.embed === true ? project.url : project.embed;
     overflow: hidden;
     border: 1px solid var(--border);
     position: relative;
+  }
+
+  .embed-wrapper.auto-height {
+    aspect-ratio: auto;
+  }
+
+  .embed-wrapper.unity {
+    aspect-ratio: 960 / 638;
   }
 
   .embed-poster {
@@ -206,8 +311,43 @@ const embedUrl = project.embed === true ? project.url : project.embed;
     display: block;
   }
 
+  /* auto-height apps: JS sets the exact content height; this is the pre-JS fallback */
+  .embed-frame.auto-frame {
+    height: 85vh;
+  }
+
+  /* Unity: render at the template's native size, then scale the whole frame to the wrapper */
+  .embed-frame.unity-frame {
+    width: 960px;
+    height: 638px;
+    transform-origin: top left;
+    transform: scale(var(--unity-scale, 1));
+  }
+
   .hidden {
     display: none;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .gallery img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    display: block;
+  }
+
+  .store-widget {
+    display: block;
+    width: 100%;
+    border: none;
+    margin-top: 1.5rem;
   }
 
   .external-btn {

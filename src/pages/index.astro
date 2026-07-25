@@ -2,6 +2,19 @@
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { projects } from '../data/projects';
+
+const groups: { title: string; slugs: string[] }[] = [
+  { title: 'Software Engineering', slugs: ['prescription-app', 'maze-viz', 'rbmk-sim'] },
+  { title: 'Video Games & Prototypes', slugs: ['chinese-empire', 'pawnshop-90s', 'minijam-119', 'colt63', 'missile-command', 'navmesh-agent-simulation', 'spring-sway', 'pickup-physics'] },
+];
+
+const bySlug = new Map(projects.map(p => [p.slug, p]));
+const sections = groups.map(g => ({ title: g.title, items: g.slugs.map(s => bySlug.get(s)!) }));
+
+// safety: surface any project not placed in a group instead of silently dropping it
+const placed = new Set(groups.flatMap(g => g.slugs));
+const orphans = projects.filter(p => !placed.has(p.slug));
+if (orphans.length) sections.push({ title: 'More', items: orphans });
 ---
 
 <Layout title="Przemysław Szurek — Software Engineer & Game Developer">
@@ -10,11 +23,14 @@ import { projects } from '../data/projects';
     <p class="tagline">Software Engineer <span>&amp;</span> Game Developer</p>
   </section>
 
-  <section class="grid">
-    {projects.map(project => (
-      <ProjectCard project={project} />
-    ))}
-  </section>
+  {sections.map(section => (
+    <section class="section">
+      <h2 class="section-title">{section.title}</h2>
+      <div class="grid">
+        {section.items.map(project => <ProjectCard project={project} />)}
+      </div>
+    </section>
+  ))}
 </Layout>
 
 <style>
@@ -40,6 +56,21 @@ import { projects } from '../data/projects';
     color: var(--accent);
     font-weight: 600;
     margin: 0 0.15em;
+  }
+
+  .section {
+    margin-bottom: 3.5rem;
+  }
+
+  .section-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
   }
 
   .grid {

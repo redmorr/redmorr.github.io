@@ -17,7 +17,11 @@ const { project } = Astro.props;
   <div class="info">
     <h2 class="title">{project.title}</h2>
     <p class="description">{project.description}</p>
-    <span class="tag">{tagLabel[project.type]}</span>
+    <div class="tags">
+      {(project.tags ?? [tagLabel[project.type]]).map((t, i) => (
+        <span class:list={['tag', { primary: i === 0 }]}>{t}</span>
+      ))}
+    </div>
   </div>
 </a>
 
@@ -84,13 +88,27 @@ const { project } = Astro.props;
     flex: 1;
   }
 
-  .tag {
-    display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--accent);
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
     margin-top: 0.25rem;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--text-muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.15rem 0.6rem;
+  }
+
+  .tag.primary {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+    background: color-mix(in srgb, var(--accent) 12%, var(--bg));
   }
 </style>
