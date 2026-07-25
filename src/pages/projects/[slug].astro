@@ -12,22 +12,27 @@ const embedUrl = project.embed === true ? project.url : project.embed;
 const isGame = !!project.game;
 // HTML apps grow to fit their content so nothing scrolls inside the iframe; canvas apps keep a fixed box.
 const autoHeight = !!embedUrl && (project.type === 'aws' || project.type === 'web');
-// Unity's stock template is a hardcoded 960x638 page — render the iframe at that size and scale it down to fit.
-const unityFixed = !!embedUrl && project.type === 'unity';
+// A hardcoded-size page (Unity's template) gets exactly the box it asks for and the column widens to hold it.
+// Never scale it: a CSS transform makes getBoundingClientRect() disagree with the canvas buffer size, so
+// Unity's cursor mapping inflates every coordinate and the view drifts right and down.
+const fixedSize = embedUrl ? project.embedSize : undefined;
+const BORDER = 2; // the wrapper's 1px border per side, which sits outside the size the page needs
 // a project with no embed links out to its store page, so name the store rather than saying "Play"
 const host = project.url.startsWith('http') ? new URL(project.url).hostname : '';
 const externalLabel = host.includes('steampowered') ? 'View on Steam'
   : host.includes('itch.io') ? 'View on itch.io'
   : label;
-const wrapperStyle = !autoHeight && !unityFixed && project.embedAspect
-  ? `aspect-ratio: ${project.embedAspect}`
-  : undefined;
+const wrapperStyle = fixedSize
+  ? `width: ${fixedSize.w}px; height: ${fixedSize.h}px`
+  : !autoHeight && project.embedAspect
+    ? `aspect-ratio: ${project.embedAspect}`
+    : undefined;
 ---
 
 <Layout title={`${project.title} — redmorr`}>
   <a href="/" class="back">← Back</a>
 
-  <article class="project">
+  <article class="project" style={fixedSize ? `max-width: ${fixedSize.w + BORDER}px` : undefined}>
     <header class="project-header">
       <div class="tags">
         {(project.tags ?? [tagLabel[project.type]]).map((t, i) => (
@@ -55,7 +60,7 @@ const wrapperStyle = !autoHeight && !unityFixed && project.embedAspect
 
     {embedUrl ? (
       isGame ? (
-        <div class:list={['embed-wrapper', { unity: unityFixed }]} style={wrapperStyle}>
+        <div class:list={['embed-wrapper', { fixed: !!fixedSize }]} style={wrapperStyle}>
           <div class="embed-poster" id="poster">
             {project.thumbnail
               ? <img src={project.thumbnail} alt={project.title} class="poster-img" />
@@ -68,18 +73,18 @@ const wrapperStyle = !autoHeight && !unityFixed && project.embedAspect
           </div>
           <iframe
             id="embed-frame"
-            class:list={['embed-frame', 'hidden', { 'unity-frame': unityFixed }]}
+            class="embed-frame hidden"
             allowfullscreen
           ></iframe>
         </div>
       ) : (
         <div
-          class:list={['embed-wrapper', { 'auto-height': autoHeight, unity: unityFixed }]}
+          class:list={['embed-wrapper', { 'auto-height': autoHeight, fixed: !!fixedSize }]}
           style={wrapperStyle}
         >
           <iframe
             src={embedUrl}
-            class:list={['embed-frame', { 'auto-frame': autoHeight, 'unity-frame': unityFixed }]}
+            class:list={['embed-frame', { 'auto-frame': autoHeight }]}
             allowfullscreen
           ></iframe>
         </div>
@@ -121,18 +126,6 @@ const wrapperStyle = !autoHeight && !unityFixed && project.embedAspect
     frame.classList.remove('hidden');
   });
 
-  // Unity: its page is a fixed 960x638, so scale the frame to the wrapper instead of scrolling inside it.
-  const unity = document.querySelector('.embed-wrapper.unity') as HTMLElement | null;
-  if (unity) {
-    const fitUnity = () => {
-      const w = unity.clientWidth;
-      // 0 = not laid out yet; keep the default scale and let the observer correct it
-      if (w) unity.style.setProperty('--unity-scale', String(w / 960));
-    };
-    fitUnity();
-    new ResizeObserver(fitUnity).observe(unity);
-  }
-
   // HTML apps: grow the iframe to its content so nothing scrolls inside it (same-origin only).
   const auto = document.querySelector('iframe.auto-frame') as HTMLIFrameElement | null;
   if (auto) {
@@ -167,6 +160,7 @@ const wrapperStyle = !autoHeight && !unityFixed && project.embedAspect
   .project {
     max-width: 900px;
   }
+
 
   .project-header {
     margin-bottom: 2rem;
@@ -251,8 +245,12 @@ const wrapperStyle = !autoHeight && !unityFixed && project.embedAspect
     aspect-ratio: auto;
   }
 
-  .embed-wrapper.unity {
-    aspect-ratio: 960 / 638;
+  /* exact size from the data, unscaled; on a narrower screen it shrinks and scrolls like any fixed-width page.
+     content-box so the 1px border sits outside the box the page needs rather than eating into it. */
+  .embed-wrapper.fixed {
+    aspect-ratio: auto;
+    box-sizing: content-box;
+    max-width: calc(100% - 2px);
   }
 
   .embed-poster {
@@ -314,14 +312,6 @@ const wrapperStyle = !autoHeight && !unityFixed && project.embedAspect
   /* auto-height apps: JS sets the exact content height; this is the pre-JS fallback */
   .embed-frame.auto-frame {
     height: 85vh;
-  }
-
-  /* Unity: render at the template's native size, then scale the whole frame to the wrapper */
-  .embed-frame.unity-frame {
-    width: 960px;
-    height: 638px;
-    transform-origin: top left;
-    transform: scale(var(--unity-scale, 1));
   }
 
   .hidden {

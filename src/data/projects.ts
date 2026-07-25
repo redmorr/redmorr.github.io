@@ -13,6 +13,8 @@ export interface Project {
   embed?: true | string;
   /** override the default 16/9 embed box, e.g. '960 / 856' */
   embedAspect?: string;
+  /** a page whose size is hardcoded (Unity's template): the exact CSS px its box needs, never scaled */
+  embedSize?: { w: number; h: number };
   thumbnail?: string;
   /** store screenshots, hotlinked from the store's own CDN */
   gallery?: string[];
@@ -41,6 +43,7 @@ export const projects: Project[] = [
     type: 'unity',
     url: 'https://redmorr.github.io/missile-command/',
     embed: true,
+    embedSize: { w: 960, h: 604 },
     thumbnail: '/missile-command-thumb.png',
   },
   {
@@ -53,6 +56,7 @@ export const projects: Project[] = [
     type: 'unity',
     url: 'https://redmorr.github.io/minijam-119-heaven-submission/',
     embed: true,
+    embedSize: { w: 960, h: 604 },
     thumbnail: '/minijam-119-thumb.png',
     jamUrl: 'https://itch.io/jam/mini-jam-119-heaven',
     submissionUrl: 'https://itch.io/jam/mini-jam-119-heaven/rate/1789853',
@@ -93,6 +97,7 @@ export const projects: Project[] = [
     type: 'unity',
     url: 'https://redmorr.github.io/navmesh-agent-simulation/',
     embed: true,
+    embedSize: { w: 960, h: 642 },
     thumbnail: '/navmesh-agent-simulation-thumb.png',
     note: 'TODO: fix selection shader · add interactions',
   },
@@ -105,6 +110,7 @@ export const projects: Project[] = [
     type: 'unity',
     url: 'https://redmorr.github.io/spring-sway-webgl/',
     embed: true,
+    embedSize: { w: 960, h: 642 },
     thumbnail: '/spring-sway-thumb.png',
   },
   {
@@ -116,6 +122,7 @@ export const projects: Project[] = [
     type: 'unity',
     url: 'https://redmorr.github.io/pickup-physics/',
     embed: true,
+    embedSize: { w: 960, h: 642 },
     thumbnail: '/pickup-physics-thumb.png',
   },
   {
